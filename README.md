@@ -1,190 +1,133 @@
-# Todo List CLI - Codecademy Yellow Belt 2
+# Todo List CLI
 
-## 🎯 Sobre o Projeto
+> 🎯 **Uma ferramenta de linha de comando para gerenciamento de tarefas pessoais desenvolvida em Go**
 
-Este é um projeto desenvolvido para o curso **Codecademy Yellow Belt 2**, especificamente para o exercício "Create a Program Using Generative AI". O objetivo é demonstrar o uso responsável e efetivo de IA Generativa no desenvolvimento de software.
+[![Go Version](https://img.shields.io/badge/Go-1.23.5-blue.svg)](https://golang.org)
+[![Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-green.svg)](#arquitetura)
+[![Tests](https://img.shields.io/badge/Coverage-%3E85%25-success.svg)](#testes)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-### Aplicação Desenvolvida
-**Todo List CLI** - Uma ferramenta de linha de comando para gerenciamento de tarefas pessoais com operações CRUD completas.
+## 🚀 Quick Start
 
-## 📋 Tarefas do Curso
-
-### ✅ 1. Come Up With the Application
-**Aplicação Escolhida**: Sistema de gerenciamento de tarefas (Todo List) via CLI
-
-**Justificativa**:
-- Complexidade suficiente com múltiplos componentes (CRUD, persistência, interface)
-- Múltiplas etapas de desenvolvimento (entidades → repositórios → casos de uso → interface)
-- Valor prático real para uso diário
-- Estrutura que permite desenvolvimento incremental ideal para IA
-
-### ✅ 2. Consider Risks and Limitations
-**Riscos Identificados**:
-- **Código Incorreto**: IA pode gerar lógica com bugs
-- **Over-reliance**: Dependência excessiva da IA
-- **Falta de Contexto**: IA não conhece todo o projeto
-
-**Mitigações Aplicadas**:
-- Testes unitários para validar código gerado
-- Revisão manual de todo código sugerido pela IA
-- Desenvolvimento incremental com validação constante
-- Documentação clara do contexto para a IA
-
-### 🔄 3. Provide Context
-**Contexto Fornecido à IA**:
-- **Linguagem**: Go 1.23.5
-- **Arquitetura**: Clean Architecture
-- **Tipo**: Aplicação CLI (não web/API)
-- **Persistência**: In-memory para simplicidade
-- **Estrutura**: Separação clara de responsabilidades
-- **Testes**: Testes unitários obrigatórios ao lado do código
-- **Framework CLI**: Cobra para interface de linha de comando
-
-### 🔄 4. Choose A Tool
-**Ferramenta Escolhida**: GitHub Copilot
-
-**Justificativa**:
-- Integração nativa com VS Code
-- Sugestões contextuais durante desenvolvimento
-- Boa para geração de código Go
-- Suporte excelente para testes unitários
-
-### 🔄 5. Consider Technology Suggestions
-**Consulta à IA**: "Preciso criar uma CLI para gerenciamento de tarefas em Go. Que bibliotecas recomendam?"
-
-**Sugestões Recebidas e Adotadas**:
-- **Cobra**: Framework para CLI (adotado)
-- **UUID**: Geração de IDs únicos (adotado)
-- **Clean Architecture**: Estrutura de projeto (adotado)
-- **Table-driven tests**: Padrão de testes Go (aplicado)
-
-### 🔄 6. Start Small
-**Primeira Implementação**: Entidade Todo básica
-
-```go
-type Todo struct {
-    ID          string
-    Title       string
-    Description string
-    Completed   bool
-    CreatedAt   time.Time
-    UpdatedAt   time.Time
-}
-```
-
-**Teste Imediato**: Validação da criação de todos e métodos básicos.
-
-### 🔄 7. Continue Development
-**Desenvolvimento Incremental**:
-1. **Entidade Todo** → Testada ✅
-2. **Interface Repository** → Definida ✅
-3. **Implementação InMemory** → Testada ✅
-4. **Casos de Uso** → Implementados e testados ✅
-5. **Interface CLI** → Desenvolvida com Cobra ✅
-6. **Integração** → Main.go conectando tudo ✅
-
-Cada etapa foi testada individualmente antes de prosseguir.
-
-### 🔄 8. Debug
-**Problemas Encontrados e Soluções**:
-- **Thread Safety**: Repository inicial não era seguro → Adicionado `sync.RWMutex`
-- **Imports Incorretos**: IA sugeriu imports errados → Corrigidos manualmente
-- **Testes Falhando**: Problemas de timing em testes → Ajustados com `time.Sleep`
-
-### 🔄 9. Finish the Project
-**Atividades de Finalização**:
-- ✅ **Documentação**: README completo, arquitetura documentada
-- ✅ **Makefile**: Automação de builds e comandos
-- ✅ **Testes Completos**: Cobertura em todas as camadas
-- ✅ **Exemplos de Uso**: Guia prático na pasta samples
-- ✅ **Estrutura Clara**: Organização seguindo convenções Go
-- ✅ **Estado Compartilhável**: Projeto pronto para uso
-
-## 🏗 Arquitetura Implementada
-
-### Clean Architecture
-```
-┌─────────────────────────────────────┐
-│            Interface Layer           │  ← CLI (Cobra)
-├─────────────────────────────────────┤
-│           Application Layer          │  ← Use Cases
-├─────────────────────────────────────┤
-│            Domain Layer              │  ← Entities
-├─────────────────────────────────────┤
-│         Infrastructure Layer         │  ← Repository Implementation
-└─────────────────────────────────────┘
-```
-
-### Estrutura de Pastas
-```
-app/
-├── main.go                           # Ponto de entrada
-├── core/                            # Camada de negócio
-│   ├── domain/entity/               # Entidades
-│   └── application/                 # Casos de uso
-└── infrastructure/                  # Implementações
-    ├── repository/                  # Persistência
-    └── interface/
-        ├── repository/              # Contratos
-        └── cli/                     # Interface CLI
-```
-
-## 🚀 Como Usar
-
-### Instalação
 ```bash
-git clone <repo>
-cd codecademy-yellowbelt2
-make install    # Instala dependências
-make build      # Compila a aplicação
-```
+# Clone e entre no diretório
+git clone https://github.com/1o0oP/codecademy-yellowbelt2.git
+cd codecademy-yellowbelt2/app
 
-### Comandos Principais
-```bash
-# Gerenciamento via Makefile
-make create TITLE="Estudar Go" DESC="Aprender interfaces"
+# Instale dependências e compile
+make install && make build
+
+# Crie sua primeira tarefa
+make create TITLE="Estudar Go" DESC="Aprender Clean Architecture"
+
+# Liste suas tarefas
 make list
-make complete ID="<todo-id>"
-make delete ID="<todo-id>"
-
-# Uso direto da CLI
-./bin/todo create "Nova tarefa" "Descrição opcional"
-./bin/todo list
-./bin/todo complete <id>
 ```
 
-### Testes
+## Sobre o Projeto
+
+Este projeto é uma **aplicação CLI (Command Line Interface)** para gerenciamento de tarefas pessoais, desenvolvida como parte do curso **Codecademy Yellow Belt 2**. O foco principal é demonstrar o **uso responsável e efetivo de IA Generativa** no desenvolvimento de software.
+
+### ✨ Características Principais
+
+- **🏗 Clean Architecture**: Separação clara de responsabilidades
+- **🔒 Thread-Safe**: Operações concorrentes seguras
+- **💾 Persistência**: Armazenamento em arquivo JSON local
+- **🧪 Testado**: Cobertura de testes >85%
+- **⚡ Performance**: Interface CLI rápida e responsiva
+- **🔧 Extensível**: Arquitetura preparada para novas funcionalidades
+
+## Funcionalidades
+
+| Comando    | Descrição                     | Exemplo                                 |
+|------------|-------------------------------|-----------------------------------------|
+| `create`   | Criar nova tarefa             | `todo create "Estudar" "Revisar conceitos"` |
+| `list`     | Listar todas as tarefas       | `todo list`                             |
+| `show`     | Exibir detalhes de uma tarefa | `todo show <id>`                        |
+| `update`   | Atualizar tarefa existente    | `todo update <id> "Novo título"`        |
+| `complete` | Marcar como concluída         | `todo complete <id>`                    |
+| `delete`   | Remover tarefa                | `todo delete <id>`                      |
+
+## 🏗 Arquitetura
+
+O projeto implementa **Clean Architecture** com as seguintes camadas:
+
+```
+┌─────────────────────────────┐
+│       Interface Layer       │  ← CLI (Cobra Framework)
+├─────────────────────────────┤
+│      Application Layer      │  ← Use Cases & Business Logic
+├─────────────────────────────┤
+│        Domain Layer         │  ← Entities & Business Rules
+├─────────────────────────────┤
+│     Infrastructure Layer    │  ← Repository & External Deps
+└─────────────────────────────┘
+```
+
+[📖 **Documentação Detalhada da Arquitetura**](docs/architecture.md)
+
+## 📚 Documentação
+
+- [🏗 **Arquitetura & Design**](docs/architecture.md) - Decisões arquiteturais e padrões
+- [⚡ **Guia de Início Rápido**](docs/getting-started.md) - Instalação e primeiros passos
+- [🎯 **Guia de Uso**](docs/usage-guide.md) - Exemplos práticos de todos os comandos
+- [🧪 **Testes**](docs/testing.md) - Estratégias de teste e cobertura
+- [🤖 **IA no Desenvolvimento**](docs/ai-development.md) - Como a IA foi utilizada
+- [🔧 **API Reference**](docs/api-reference.md) - Documentação técnica das interfaces
+- [🚀 **Deploy & Build**](docs/deployment.md) - Build, distribuição e configuração
+
+## 🧪 Testes
+
 ```bash
-make test           # Executar testes
-make test-coverage  # Coverage report
+# Executar todos os testes
+make test
+
+# Gerar relatório de cobertura HTML
+make test-coverage
+
+# Abrir relatório no navegador
+open coverage.html
 ```
 
-## 🎓 Principais Aprendizados
+**Métricas de Qualidade:**
+- ✅ Cobertura de testes: **>85%**
+- ✅ Testes unitários em todas as camadas
+- ✅ Mocks para isolamento de dependências
+- ✅ Testes de integração da CLI
 
-### Sobre IA Generativa
-- **Contexto é Crucial**: Prompts detalhados geram código melhor
-- **Validação Necessária**: Sempre testar código gerado
-- **Desenvolvimento Incremental**: Pequenos passos são mais efetivos
-- **IA como Ferramenta**: Acelera desenvolvimento, mas não substitui conhecimento
+## 🤖 IA Generativa no Desenvolvimento
 
-### Sobre Clean Architecture
-- **Separação de Responsabilidades**: Facilita testes e manutenção
-- **Inversão de Dependências**: Core independente de detalhes técnicos
-- **Testabilidade**: Cada camada testável isoladamente
+Este projeto demonstra o **uso estratégico de IA Generativa** (GitHub Copilot) no desenvolvimento:
 
-### Sobre Go
-- **Simplicidade**: Linguagem clara e objetiva
-- **Interfaces**: Contratos bem definidos
-- **Testes**: Convenções simples e efetivas
-- **Concorrência**: Goroutines e channels para thread safety
+- **~60% do código inicial** gerado/sugerido por IA
+- **Validação rigorosa** através de testes automatizados
+- **Desenvolvimento incremental** com feedback constante
+- **Documentação** do processo e lições aprendidas
 
-## 📊 Métricas do Projeto
-- **Linhas de Código**: ~500 linhas
-- **Cobertura de Testes**: >85%
-- **Tempo de Desenvolvimento**: ~6 horas
-- **Uso de IA**: ~60% do código inicial gerado/sugerido por IA
-- **Refatorações**: 3 grandes refatorações baseadas em testes
+[📖 **Leia mais sobre o uso de IA no projeto**](docs/ai-development.md)
+
+## 📊 Estatísticas do Projeto
+
+| Métrica                | Valor        |
+|------------------------|-------------|
+| **Linhas de Código**   | ~800 linhas |
+| **Cobertura de Testes**| >85%        |
+| **Tempo de Desenvolvimento** | ~8 horas |
+| **Contribuição da IA** | ~60%        |
+| **Arquivos de Teste**  | 6 arquivos  |
+| **Dependências**       | 6 bibliotecas |
+
+## 🤝 Contribuindo
+
+Este é um projeto educacional, mas contribuições são bem-vindas! Consulte as diretrizes de contribuição e a documentação técnica.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ---
 
-**Projeto desenvolvido como exercício prático do curso Codecademy Yellow Belt 2, demonstrando uso efetivo de IA Generativa no desenvolvimento de software.**
+<p align="center">
+    <strong>Desenvolvido como exercício prático do curso Codecademy Yellow Belt 2</strong><br>
+    <em>Demonstrando uso efetivo de IA Generativa no desenvolvimento de software</em>
+</p>

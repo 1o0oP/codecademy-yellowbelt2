@@ -18,7 +18,11 @@ install: ## Instalar dependências
 	go mod tidy
 	go mod download
 
-test: ## Executar testes com coverage
+test: ## Executar testes
+	@echo "🧪 Executando testes..."
+	go test ./...
+
+test-coverage: ## Executar testes com coverage
 	@echo "📊 Executando testes com coverage..."
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out -o coverage.html
